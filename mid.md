@@ -71,27 +71,9 @@ if [ "$(date +%u)" -eq 7 ]; then
   tar -czf "$ARCHIVE_DIR/weeklylogs_$(date +%Y-%m-%d).tar.gz" -C "$ARCHIVE_DIR" .
 fi
 Output Example:
-bash
-Copy code
-=============================
-System Log for: Fri Oct 17 10:30:00 IST 2025
-User: astik
-=============================
 
-Uptime:
- 10:30:00 up 1 day,  2:13,  2 users,  load average: 0.34, 0.22, 0.10
+<img width="738" height="515" alt="2025-10-19" src="https://github.com/user-attachments/assets/6d3c7bf4-ff67-4ca5-af62-88c4893e6eee" />
 
-Top 5 CPU-consuming processes:
-  PID COMMAND %MEM %CPU
- 1234 chrome  8.1  14.2
- 2345 code    7.2  10.8
- 3456 firefox 6.9  9.3
- 4567 gnome   5.0  5.5
- 5678 bash    0.3  0.5
-
-Disk Usage:
-Filesystem      Size  Used Avail Use% Mounted on
-/dev/sda1        98G   71G   22G  78% /
 Exercise 2: Scheduling the Script
 Task Statement:
 Schedule the above script to run daily using cron.
@@ -129,4 +111,77 @@ Store archives in ~/daily_logs/archive.
 
 Result:
 The script successfully logs daily system information, archives logs older than 7 days, and schedules itself to run daily using a cron job.
+
+
+
+1.
+### Enhancements and Exploration**
+
+#### **Task Statement:**
+Explore additional functionalities that can be added to the Daily System Logger script to improve automation, usability, and robustness.
+
+#### Send an Email with Log Attachment**
+You can send the latest log file via email using the `mail` command.  
+This feature is useful for system administrators who want daily reports in their inbox.
+
+##### **Example Implementation:**
+```bash
+# Send the latest log file as an email attachment
+LOG_FILE="$LOG_DIR/log_$(date +%Y-%m-%d).txt"
+mail -s "Daily System Log - $(date)" -a "$LOG_FILE" admin@example.com < /dev/null
+
+
+
+2.
+# Check if directories exist
+if [ ! -d "$LOG_DIR" ]; then
+    echo "Error: Log directory not found! Creating it now..."
+    mkdir -p "$LOG_DIR"
+fi
+
+if [ ! -d "$ARCHIVE_DIR" ]; then
+    echo "Error: Archive directory not found! Creating it now..."
+    mkdir -p "$ARCHIVE_DIR"
+fi
+
+# Verify log file creation
+if [ ! -f "$LOG_FILE" ]; then
+    echo "Error: Failed to create log file." >&2
+    exit 1
+fi
+
+
+3.
+#!/bin/bash
+echo "===== Daily Log Menu ====="
+echo "1. View latest log"
+echo "2. Archive old logs"
+echo "3. Clean up old logs"
+echo "4. Exit"
+echo "=========================="
+read -p "Enter your choice [1-4]: " choice
+
+case $choice in
+  1)
+    echo "Showing latest log:"
+    cat "$LOG_DIR/log_$(date +%Y-%m-%d).txt"
+    ;;
+  2)
+    echo "Archiving old logs..."
+    tar -czf "$ARCHIVE_DIR/manual_archive_$(date +%Y-%m-%d).tar.gz" "$LOG_DIR"/log_*.txt
+    echo "Archive created successfully."
+    ;;
+  3)
+    echo "Deleting logs older than 7 days..."
+    find "$LOG_DIR" -name "log_*.txt" -mtime +7 -exec rm {} \;
+    echo "Old logs removed."
+    ;;
+  4)
+    echo "Exiting..."
+    exit 0
+    ;;
+  *)
+    echo "Invalid option. Please try again."
+    ;;
+esac
 
