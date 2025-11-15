@@ -70,31 +70,19 @@ find "$SYS_D" -name "log_*.txt" -mtime +7 -exec mv {} "$ARCHIVE_DIR" \;
 if [ "$(date +%u)" -eq 7 ]; then
   tar -czf "$ARCHIVE_DIR/weeklylogs_$(date +%Y-%m-%d).tar.gz" -C "$ARCHIVE_DIR" .
 fi
-Output Example:
+```
+## Output Example:
 
 <img width="738" height="515" alt="2025-10-19" src="https://github.com/user-attachments/assets/6d3c7bf4-ff67-4ca5-af62-88c4893e6eee" />
 
-Exercise 2: Scheduling the Script
-Task Statement:
+## Exercise 2: Scheduling the Script
+## Task Statement:
 Schedule the above script to run daily using cron.
 
-Explanation:
+## Explanation:
 Use crontab to automate the script execution at a fixed time every day.
 
-Command(s):
-bash
-Copy code
-crontab -e
-Add the following line:
-
-arduino
-Copy code
-0 20 * * * /home/astik/daily_log.sh
-This runs the script every day at 8:00 PM.
-
-Verification:
-To confirm the job is added:
-
+## Command(s):
 bash
 Copy code
 crontab -l
@@ -109,7 +97,7 @@ For archiving, use tar -czf weeklylogs_$(date +%Y-%m-%d).tar.gz.
 
 Store archives in ~/daily_logs/archive.
 
-Result:
+## Result:
 The script successfully logs daily system information, archives logs older than 7 days, and schedules itself to run daily using a cron job.
 
 
@@ -133,7 +121,8 @@ mail -s "Daily System Log - $(date)" -a "$LOG_FILE" admin@example.com < /dev/nul
 
 
 2.
-# Check if directories exist
+```
+## Check if directories exist
 if [ ! -d "$LOG_DIR" ]; then
     echo "Error: Log directory not found! Creating it now..."
     mkdir -p "$LOG_DIR"
@@ -150,8 +139,7 @@ if [ ! -f "$LOG_FILE" ]; then
     exit 1
 fi
 
-
-3.
+```
 #!/bin/bash
 echo "===== Daily Log Menu ====="
 echo "1. View latest log"
