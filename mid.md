@@ -5,7 +5,7 @@
 * To create a shell script that logs current system information, rotates old logs, and schedules itself to run daily.
 
 ### Requirements:
-* Any Linux Distro  
+* Any Linux Distro(kali)
 * Any text editor (VS Code, Vim, Nano, etc.)  
 * Cron service for scheduling  
 
@@ -84,9 +84,7 @@ Use crontab to automate the script execution at a fixed time every day.
 
 ## Command(s):
 bash
-Copy code
 crontab -l
-Hints for Implementation
 Use date +%Y-%m-%d for file naming.
 
 Use find . -name "log_*.txt" -mtime +7 to identify old files.
@@ -97,6 +95,12 @@ For archiving, use tar -czf weeklylogs_$(date +%Y-%m-%d).tar.gz.
 
 Store archives in ~/daily_logs/archive.
 
+## Scheduling(cron job)
+Using crontab -e to schedule the script to run everyday at a fixed time.
+eg.
+```
+0 20 * * * /home/user/daily_log.sh
+```  
 ## Result:
 The script successfully logs daily system information, archives logs older than 7 days, and schedules itself to run daily using a cron job.
 
@@ -138,8 +142,8 @@ if [ ! -f "$LOG_FILE" ]; then
     echo "Error: Failed to create log file." >&2
     exit 1
 fi
-
-```
+## 3.
+```bash
 #!/bin/bash
 echo "===== Daily Log Menu ====="
 echo "1. View latest log"
@@ -152,6 +156,7 @@ read -p "Enter your choice [1-4]: " choice
 case $choice in
   1)
     echo "Showing latest log:"
+    read $LOG_DIR
     cat "$LOG_DIR/log_$(date +%Y-%m-%d).txt"
     ;;
   2)
@@ -172,4 +177,11 @@ case $choice in
     echo "Invalid option. Please try again."
     ;;
 esac
+```
+## output:
+<img width="960" height="478" alt="2025-11-18" src="https://github.com/user-attachments/assets/613dd670-c6a2-4f4f-bc1b-4074f38ed4df" />
+
+<img width="960" height="479" alt="2025-11-18 (2)" src="https://github.com/user-attachments/assets/a178423e-1300-47f8-ba97-a944ae6e858f" />
+
+
 
