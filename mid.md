@@ -106,7 +106,7 @@ The script successfully logs daily system information, archives logs older than 
 
 
 
-1.
+# 1.
 ### Enhancements and Exploration**
 
 #### **Task Statement:**
@@ -124,24 +124,30 @@ mail -s "Daily System Log - $(date)" -a "$LOG_FILE" admin@example.com < /dev/nul
 
 
 
-2.
+
 ```
+# 2.
+
 ## Check if directories exist
+```
 if [ ! -d "$LOG_DIR" ]; then
     echo "Error: Log directory not found! Creating it now..."
     mkdir -p "$LOG_DIR"
 fi
-
+```
+```
 if [ ! -d "$ARCHIVE_DIR" ]; then
     echo "Error: Archive directory not found! Creating it now..."
     mkdir -p "$ARCHIVE_DIR"
 fi
-
+```
 # Verify log file creation
+```
 if [ ! -f "$LOG_FILE" ]; then
     echo "Error: Failed to create log file." >&2
     exit 1
 fi
+```
 ## 3.
 ```bash
 #!/bin/bash
