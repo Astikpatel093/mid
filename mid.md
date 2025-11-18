@@ -192,4 +192,10 @@ esac
 <img width="960" height="479" alt="2025-11-18 (2)" src="https://github.com/user-attachments/assets/a178423e-1300-47f8-ba97-a944ae6e858f" />
 
 
+## Conclusion:
+The Daily System Logger script automates log creation, archiving, weekly compression, and local email delivery. It successfully runs daily using cron, demonstrating practical use of shell scripting for system monitoring.
+
+We can simply check the mail by typing mail and typing 1 if its the latest mail on our system., also all of these mails only exist on my system and not on the internet, So even though its sent via email it doesn’t go to gmail or the internet it stays on my system
+
+
 
