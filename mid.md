@@ -99,8 +99,10 @@ Store archives in ~/daily_logs/archive.
 Using crontab -e to schedule the script to run everyday at a fixed time.
 eg.
 ```
-0 20 * * * /home/user/daily_log.sh
-```  
+0 20 * * * /home/astik/mid/mid.sh
+```
+<img width="725" height="328" alt="2025-11-18 (5)" src="https://github.com/user-attachments/assets/a3cf39ac-651f-4b94-aaa9-7cc9b7528eea" />
+
 ## Result:
 The script successfully logs daily system information, archives logs older than 7 days, and schedules itself to run daily using a cron job.
 
